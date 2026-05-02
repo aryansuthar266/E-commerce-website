@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">IL - Shoppers</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+          <ul class="dropdown-menu">
+            {%for i in category%}
+            <li><a class="dropdown-item" href="/catvisepro/{{i.id}}">{{i.catname}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sort</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">a-z</a></li>
+            <li><a class="dropdown-item" href="#">z-a</a></li>
+            <li><a class="dropdown-item" href="#">High - low</a></li>
+            <li><a class="dropdown-item" href="#">low - High</a></li>
+          </ul>
+        </li>
+      </ul>
+      </ul>
+      <div class="d-flex align-items-center">
+          {%if request.session.log_id%}
+            {%if request.session.log_role == 'user'%}
+        <a class="btn btn-outline-light me-2" href="/cart"><i class="bi bi-cart"></i> Cart</a>
+        <a class="btn btn-outline-light me-2" href="/myorder">Your Orders</a>
+        <a class="btn btn-outline-light me-2" href="/displaywishlist">your Wishlist</a>
+        <a class="btn btn-outline-light me-2" href="/logout">Logout</a>
+        <div class="user-info ms-3">
+          <img src="media/{{i.dp}}">
+          <span class="text-light">{{request.session.log_name}}</span>
+        </div>
+            {%else%}
+                <a class="btn btn-outline-light me-2" href="/addpro">add product</a>
+        <a class="btn btn-outline-light me-2" href="/manageproduct">manage product</a>
+        <a class="btn btn-outline-light me-2" href="/sellerorders">your product</a>
+        <a class="btn btn-outline-light me-2" href="/logout">Logout</a>
+        <div class="user-info ms-3">
+          <img src="media/{{i.dp}}">
+          <span class="text-light">{{request.session.log_name}}</span>
+        </div>
+        {%endif%}
+
+        {%else%}
+        <a class="btn btn-outline-light me-2" href="logindata">Login</a>
+        <a class="btn btn-outline-light me-2" href="registerdata">Sign Up</a>
+        {%endif%}
+
+        {% if messages %}
+        {% for msg in messages %}
+        <script> alert('{{msg}}')</script>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
